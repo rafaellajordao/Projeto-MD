@@ -1,3 +1,4 @@
+# R2 :::::::::::::::
 def solução(a, b, c): #def para a solução da equação.
     i = 0
     while i * a <= c: #valor de a deve ser menor que c, pois ax + by = c.
