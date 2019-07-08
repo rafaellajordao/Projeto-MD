@@ -1,7 +1,7 @@
 # PMD
 ☍ Falta a letra B do R2 || Letra a = OK! ; Letra c = OK!
 
-☍ Falta F1
+☍ F1 = OK!
 
 ☍ Falta I6
 
