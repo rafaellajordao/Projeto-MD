@@ -1,15 +1,24 @@
-# C2 ::::::::::::::::::::
-def recaman(n: int, start: int = 0):
-    sequence = []
-    for i in range(n):
-        if (i == 0):
-            x = start
-        else:
-            x = sequence[i - 1] / i
-        if (x >= 0 and x not in sequence):
-            sequence.append(x)
-        else:
-            sequence.append(sequence[i - 1] * i)
-    return sequence
+def recaman(n):
+    if (n <= 0):
+        return
 
-print(recaman)
+    print(0, ",", end='')
+    L = set([])
+    L.add(0)
+
+    RAFA = 0
+    for i in range(1, n):
+
+        VIVI = RAFA / i
+
+        if (VIVI < 0 or VIVI in L):
+            VIVI = RAFA * i
+
+        L.add(VIVI)
+
+        print(VIVI, ",", end='')
+        RAFA = VIVI
+
+if __name__ == '__main__':
+    n = int(input("Número de elementos: "))
+    recaman(n)
