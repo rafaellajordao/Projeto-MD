@@ -1,31 +1,50 @@
-def dijkstra(grafos, raiz):
-    lista = prioridade() #lista de prioridade
-    caminho = {} #dicionário com o caminho e o  final total
-    
-    for r in grafos.vertices():
-        if v == raiz:
-            caminho[r] = [[], 0] #Colocamos valor 0 para raiz
-        else:
-            caminho[r] = [[], inf] #Colocamos valor infinitos para os outros
+graph = {'a':{'b':1,'c':2, 'd':3},
+        'b':{'d':2, 'e':4},
+        'c':{'d':5, 'f':3},
+        'd':{'e':2, 'f':1, 'g':4}, 
+        'e':{'g':2, 'h':5},
+        'f':{'g':1, 'i':3},
+        'g':{'j':5, 'h':3, 'i':4},
+        'h':{'j':2},
+        'i':{'j':1}, 
+        'j':{}}
+n1 = (input("Início: ")).lower()
+n2 = (input("Fim: ")).lower()
+def djikstra(graph, start, end):
+    ant = {}
+    dist_min = {}
+    unseenNo = graph
+    caminho = []
+    inf = 999999
+    for no in unseenNo:
+        dist_min[no] = inf
+    dist_min[start] = 0
 
-        lista.add((caminho[r][1], r)) #adiciona todas nas lista de prioridade (menor prioridade também é menor custo)
+    while unseenNo:
+        minNo = None
+        for no in unseenNo:
+            if minNo is None:
+                minNo = no
+            elif dist_min[no] < dist_min[minNo]:
+                minNo = no
 
-    outros_vertices = list(grafos.vertices()) #lista de vertices que não foram usados
+        for childNo, valor in graph[minNo].items():
+            if valor + dist_min[minNo] < dist_min[childNo]:
+                dist_min[childNo] = valor + dist_min[minNo]
+                ant[childNo] = minNo
+        unseenNo.pop(minNo)
 
+    currentNo = end
+    while currentNo != start:
+        try:
+            caminho.insert(0, currentNo)
+            currentNo = ant[currentNo]
+        except KeyError:
+            print("IMPOSSIVEL.")
+            break
+    caminho.insert(0, start)
+    if dist_min[end] != inf:
+        print("Menor caminho: " + str(dist_min[end]))
+        print("Caminho: " + str(caminho))
 
-    for v in range(len(grafos.vertices())):
-        u = lista.get()[1] #vertice prioritario da lista
-        outros_vertices.remove(u) #remove os vertices nao usados da lista
-
-        for r in outros_vertices: 
-            du = caminho[u][2] # menor custo ate o vertice u (prioridade)
-            d = grafos.valor_direto(u, r) #valor de u ate r
-            dr = caminho[r][3] # menor valor ate o vertice r
-            if du + d < dr: 
-                caminho[r][4] = du + [u] #atualiza o valor
-                caminho[r][0] = caminho[u][0] + [u] #atualiza o caminho
-                lista.lista.remove((dr, r)) #atualiza prioridade do vertice r na lista de prio
-                lista.add((caminho[r][5], r))
-    
-    return caminho
-    
+djikstra(graph, n1, n2)
